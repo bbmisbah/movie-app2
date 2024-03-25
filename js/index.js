@@ -1,13 +1,4 @@
-import { getSearchPerson, getTrending, getTrendingMovies, getTrendingTvSeries, getSearchPerson } from "./api/trendingGetters.js"
-import { BASE_URL, PERSON } from "./api/config.js";
-
-getTrending();
-
-getTrendingMovies();
-
-getTrendingTvSeries();
-
-getSearchPerson("Clooney");
-
-
+export {getTrendingMovies} from  "./api/trendingGetters.js";
+export {getTrending} from "./api/trendingGetters.js";
+export {createCard} from "./dom-manipulator/createList.js";
 
