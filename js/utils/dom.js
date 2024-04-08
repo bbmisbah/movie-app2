@@ -30,8 +30,33 @@ document.addEventListener("DOMContentLoaded", function() {
       const description = document.createElement("p");
       description.textContent = image.description;
       cardText.appendChild(description);
-  
-      card.appendChild(cardText);
+
+/*
+    // creo un div principale per il carosello
+      const carosello = document.createElement("div");
+      carosello.classList.add("carouselExampleCaptions");
+
+      //creo un array di immagini
+      const immagini = ['immagine1.jpg', 'immagine2,jpg', 'immagine3.jpg'];
+
+      //creo un div per ogni immagine e lo aggiungo al carosello
+      immagini.forEach((immagine) => {
+        const slide = 
+        document.createElement('div');
+        slide.classList.add('slide');
+
+        const img = 
+        document.createElement('img');
+        img.setAttribute('src', immagine);
+
+        slide.appendChild(img);
+        carosello.appendChilf(slide);
+      });
+
+      //aggiungo il carosello al documento HTML 
+      document.body.appendChild(carosello); */
+ 
+      card.appendChild(cardText); 
   
       cardContainer.appendChild(card);
     });

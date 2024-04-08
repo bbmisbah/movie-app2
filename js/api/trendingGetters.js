@@ -21,6 +21,11 @@ export const getTrendingActor = async () => {
     return data;
 };
 
+export const getTrendingTV = async () => {
+    const response = await fetch(baseUrl + "trending/tv/day?language=en-US", OPTIONS);
+    const data = await response.json();
+    return data;
+};
 
 
 

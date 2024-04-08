@@ -1,67 +1,47 @@
-/**
- * createTrendingMovies()
- * 
- * la funzione prenderà in ingresso un array di movies, per ogni movie aggiungere al dom un nuovo nodo, che sarà un tag <li> contentente il titolo del movie
- * 
- * @param array dei file
- * @returns
- */
-
-export const createTrendingMoviesList = (movies) => {
-    //recupero il nodo ul con id "trending-movies-list"
-    const list = document.getElementById("trending-movies-list");
-
-    const cardContainer = document.getElementById("movies-card");
-
-    //ciclo su ogni elemetno dell'array che viene preso in ingresso come parametro
-    movies?.results?.forEach((element) => {
-        //creiamo un nuovo nodo che corrisponde a un tag <li>
-        const listItem = document.createElement("li");
-
-        //impostiamo il contenuto del tag li appena creato, assegnando  il valore del title dell'elemento coerente in questa iterazione dell'array
-        listItem.innerHTML = element.title;
-
-        //appendiamo alla pagina html il nuovo tag creato. dove? sul tag ul recuperato all'inizio mediante l'id
-        list.appendChild(listItem);
-    }
-    ) 
-    cardContainer;
-}
+import { getTrendingMovies } from "./api/trendingGetters.js"; // Assicurati di importare la funzione getTrendingMovies
 
 const IMAGE_PATH = 'https://image.tmdb.org/t/p/w342';
 
-export const createCard = (movies) => {
-    const cardContainer = document.getElementById("movies-card");
-    movies.results.forEach(element => {
+export const createCard = (movie) => {
+    const card = document.createElement("div");
+    card.classList.add("movie-card");
 
-        const card = document.createElement("div");
+    const image = document.createElement("img");
+    const imageUrl = movie.poster_path;
+    image.src = IMAGE_PATH + imageUrl;
+    image.alt = 'poster';
+    card.appendChild(image);
 
-        const textContainer = document.createElement("div");
+    const title = document.createElement("h1");
+    title.innerText = movie.title;
+    card.appendChild(title);
 
-        const image = document.createElement("img");
+    const description = document.createElement("p");
+    description.innerText = movie.overview;
+    card.appendChild(description);
 
-        const imageUrl = element.poster_path;
-
-        image.src = IMAGE_PATH + imageUrl;
-
-        image.alt = 'poster';
-
-        const title = document.createElement("h1");
-        title.innerText = element.title;
-
-        const description = document.createElement("p");
-        description.innerText = element.overview;
-
-        textContainer.appendChild(image);
-
-        textContainer.appendChild(title);
-
-        textContainer.appendChild(description);
-
-        card.appendChild(textContainer);
-
-        cardContainer.appendChild(card);
-
-
-    });
+    return card;
 }
+
+async function createMovieSlider() {
+    const movies = await getTrendingMovies(); // Assume che questa funzione ritorni un array di film
+
+    const sliderContainer = document.getElementById('movie-slider');
+  
+    // Assicurati che il container sia vuoto prima di popolarlo
+    sliderContainer.innerHTML = '';
+  
+    // Crea e aggiungi le card dei film al container del carosello
+    movies.forEach(movie => {
+        const movieCard = createCard(movie);
+        sliderContainer.appendChild(movieCard);
+    });
+
+    // Aggiungi classe al container del carosello per applicare stili CSS
+    sliderContainer.classList.add("movie-slider");
+  
+    // Qui potresti aggiungere la logica per i controlli di navigazione del carosello
+}
+
+// Chiamata alla funzione per creare il carosello
+createMovieSlider();
